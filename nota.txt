@@ -1,0 +1,74 @@
+#install nestjs
+npm install -g @nestjs/cli
+
+#Dependencia para prisma dentro do projeto 
+npm install @prisma/client
+
+#criar a aplicação
+nest new nestjs-partners-api
+
+# Criar um modulo para eventos
+nest generate controller event
+
+# Para generate recursos
+nest g resource
+
+# entra no docker do db
+docker compose exec db bash
+
+#para entrar no mysql no docker
+mysql -uroot -proot
+
+#instalar o prisma 
+npx prisma init
+
+#migration dos dados para prisma
+npx prisma migrate dev
+
+# to reset the migration on prisma
+npx prisma migrate reset 
+npx prisma db push --force-reset
+
+#selecionar uma database do mysql
+use tablename;
+
+show databases;
+show tables;
+describe Event;
+
+#para fazer a integração do prisma com Nest vamos criar uma modulo especifico
+nest g module prisma
+
+#precisamos também generar um serviço para o prisma
+nest g service prisma
+
+#Agora vamos fazer a criação do modulo dos spots
+nest g resource spots
+
+## Para rodar a nossa Application no docker para as pessoas possam também rodar vamos criar um dockerfile
+o openssl é uma dependencia do Prisma
+O procps é o comando no linux para podermos administrar os comandos do linux
+
+##Para criar o lib core
+nest g library
+
+## Para criar app partner
+nest g app partner
+
+## Para destruir apenas o conteiner do Database
+docker compose down db
+
+## Instalar um pacote de Nest chamado de nestjs/config que ler os variaveis de ambiente para ficar disponible por toda aplicação
+ npm install @nestjs/config
+
+## Vamos precisar instalar o Dotenv CLI
+npm install dotenv-cli --save-dev
+
+## Para produção instalar
+npm install dotenv-cli
+
+## Para instalar um modulo de Auth
+  nest g module auth
+
+## Para instalar um modulo Guard que vai permitir para a gente guardar a nossas rotas
+ nest g guard auth
