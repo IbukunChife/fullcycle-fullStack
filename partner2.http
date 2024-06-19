@@ -1,0 +1,65 @@
+###
+GET http://localhost:3001/eventos
+
+###
+# @name criarEvento
+POST http://localhost:3001/eventos/
+Content-Type: application/json
+
+{
+  "name": "Somente Lady",
+  "description": "new event description",
+  "date": "2017-01-01T00:00:00",
+  "price": 200
+}
+
+###
+@eventoId ={{ criarEvento.response.body.id }}
+
+###
+GET http://localhost:3001/eventos/{{eventoId}}
+
+
+###
+PATCH http://localhost:3001/eventos/{{eventoId}}
+Content-Type: application/json
+
+{
+  "name": "event shining in the sky",
+  "description": "new event description",
+  "date": "2017-01-01T00:00:00",
+  "price": 100
+}
+
+###
+DELETE  http://localhost:3001/eventos/{{eventoId}}
+
+###
+GET http://localhost:3001/eventos/{{eventoId}}/lugares
+
+###
+# @name criarLugar
+POST http://localhost:3001/eventos/{{eventoId}}/lugares
+Content-Type: application/json
+
+{
+  "name": "A7"
+}
+
+
+###
+@lugarNome={{ criarLugar.response.body.name }}
+
+###
+POST http://localhost:3001/eventos/{{eventoId}}/reservar
+Content-Type: application/json
+
+{
+  "lugares":["{{ lugarNome }}"],
+  "ticket_kind": "full",
+  "email":"test@test.com"
+}
+
+
+###
+GET http://localhost:3001/eventos/{{eventoId}}
